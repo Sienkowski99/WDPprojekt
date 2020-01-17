@@ -1,0 +1,8 @@
+Soldier
+Nurse
+American_businessman
+Wealthy_Investor
+Photographer
+Seller_from_the_street
+Motorman
+Trumpeter
