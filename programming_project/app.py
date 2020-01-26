@@ -1,3 +1,518 @@
+from tkinter import *
+import random
+import math
+import time
+
+
+
+bjapp = Tk()
+#bjapp.geometry('1000x1000')
+bjapp.minsize(750, 750)
+bjapp.maxsize(750, 750)
+bjapp.title("Blackjack")
+bjapp.configure(background="dark green")
+
+def wynies(frame):
+    frame.tkraise()
+
+def wiecej100():
+    x = int(stawiam.get())
+    if saldo.get() >= (stawiam.get() + 100):
+        x += 100
+        stawiam.set(x)
+    else:
+        pass
+
+def wiecej500():
+    x = int(stawiam.get())
+    if saldo.get() >= (stawiam.get() + 500):
+        x += 500
+        stawiam.set(x)
+    else:
+        pass
+
+def wiecej1000():
+    x = int(stawiam.get())
+    if saldo.get() >= (stawiam.get() + 1000):
+        x += 1000
+        stawiam.set(x)
+    else:
+        pass
+
+def mniej():
+    x = int(stawiam.get())
+    if stawiam.get() - 100 >= 0:
+        x -= 100
+        stawiam.set(x)
+    else:
+        pass
+
+def display_cards():
+    mycards5 = Label(karty, bg="white", text="Your cards:", font=("Arial Black", 20))
+    mycards5.grid(column=0, row=0, sticky="news")
+    mycards4 = Label(karty, bg="white", textvariable=mycards3, font=("Arial", 20))
+    mycards4.grid(column=1, row=0, sticky="news")
+
+    #dealercards4 = Label(karty, bg="white", text="Dealer's cards:", font=("Arial Black", 20)) #tu zmiana na first card
+    dealercards4.grid(column=0, row=1, sticky="news")
+    dealercards5 = Label(karty, bg="white", textvariable=dealercards3, font=("Arial", 20))
+    dealercards5.grid(column=1, row=1, sticky="news")
+
+    mysum3 = Label(karty, bg="white", text="Sum:", font=("Arial Black", 20))
+    mysum3.grid(column=2, row=0, sticky="news")
+    mysum4 = Label(karty, bg="white", textvariable=mysum2, font=("Arial", 20))
+    mysum4.grid(column=3, row=0, sticky="news")
+
+    dealercards4.config(text="Dealer's first card:")
+
+def display_cards_2():
+    #dealersum3 = Label(karty, bg="white", text="Sum:", font=("Arial Black", 20))
+    dealersum3.grid(column=2, row=1)
+    #dealersum4 = Label(karty, bg="white", textvariable=dealersum2, font=("Arial", 20))
+    dealersum4.grid(column=3, row=1, sticky="news")
+
+def dealer_update():
+    dealercards4.config(text="Dealer's cards:")
+
+def clear():
+    print("clear")
+    #bjapp.after(3000, info.place_forget())
+    karty.place_forget()
+    dealersum3.grid_forget()
+    dealersum4.grid_forget()
+    info.place_forget()
+    ok.place_forget()
+
+def show():
+    karty.place(x=150, y=200)
+
+def czekaj():
+    print("zaczynam czekac")
+    time.sleep(1)
+    print("skonczylem czekac")
+
+def maybe_bet():
+    if stawiam.get() > 0:
+        obstaw()
+    elif stawiam.get() <= 0:
+        #messagebox.showinfo('', 'Your bet should be higher than 0!')
+        info.place_forget()
+        informacja.set("Your bet should be higher than 0!")
+        info.place(x=300, y=300)
+        ok.place(x=350, y=380)
+        ok.wait_variable(okej)
+        clear()
+    else:
+        pass
+
+def obstaw():
+    hit.config(bg="grey")
+    stand.config(bg="grey")
+    info.place_forget()
+    display_cards()
+    stawka = stawiam.get()
+    stan_konta = saldo.get()
+    karty = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"]
+    mycards = []
+    dealercards = []
+    dealercards.clear()
+    mycards.clear()
+    mycards2 = ""
+    dealercards2 = ""
+    for i in range(2):
+        mycards.append(random.choice(karty))
+        dealercards.append((random.choice(karty)))
+    for i in mycards:
+        mycards2 += " "
+        mycards2 += str(i)
+        mycards2 += " "
+    for i in dealercards:
+        dealercards2 += " "
+        dealercards2 += str(i)
+        dealercards2 += " "
+    mysum = 0
+    dealersum = 0
+    for i in range(0, len(mycards), 1):
+        if mycards[i] == "J" or mycards[i] == "Q" or mycards[i] == "K":
+            mysum += 10
+        elif mycards[i] == "A":
+            mysum += 1
+        else:
+            mysum += int(mycards[i])
+    for i in range(0, len(dealercards), 1):
+        if dealercards[i] == "J" or dealercards[i] == "Q" or dealercards[i] == "K":
+            dealersum += 10
+        elif dealercards[i] == "A":
+            dealersum += 1
+        else:
+            dealersum += int(dealercards[i])
+    print(mycards2, mysum)
+    print(dealercards2, dealersum)
+    mycards3.set(mycards2)
+    #dealercards3.set(dealercards2)
+    mysum2.set(mysum)
+    dealersum2.set(dealersum)
+    temp = dealercards[0]
+    dealercards3.set(temp)
+    show()
+
+    info.place(x=300, y=300)
+
+    while True:
+        if mysum == 21:
+            break
+        while mysum < 21:
+            hit_or_stand.place(x=300, y=350)
+
+            informacja.set("Pick what you want to do:")
+            #res = messagebox.askyesno('', 'Yes - HIT\nNo - STAND')
+            accept.wait_variable(okej2)
+            accept.place_forget()
+            if okej2.get() == 1:
+                mycards.append(random.choice(karty))
+                mycards2 = ""
+                for i in mycards:
+                    mycards2 += " "
+                    mycards2 += str(i)
+                    mycards2 += " "
+                mysum = 0
+                for i in range(0, len(mycards), 1):
+                    if mycards[i] == "J" or mycards[i] == "Q" or mycards[i] == "K":
+                        mysum += 10
+                    elif mycards[i] == "A":
+                        mysum += 1
+                    else:
+                        mysum += int(mycards[i])
+                mysum2.set(mysum)
+                mycards3.set(mycards2)
+            elif okej2.get() == 0:
+                break
+            else:
+                pass
+        hit_or_stand.place_forget()
+        break
+
+
+    if mysum <= 21:
+        dealer_update()
+
+        info.place_forget()
+        informacja.set("Dealer's turn")
+        info.place(x=300, y=300)
+        #messagebox.showinfo('', 'Dealers turn')
+
+        info.update()
+        time.sleep(2)
+
+        dealercards3.set(dealercards2)
+
+        info.update()
+        time.sleep(2)
+
+        while True:
+            if dealersum >= 17:
+                display_cards_2()
+                break
+            elif dealersum <= 16:
+                while dealersum <= 16:
+                    dealercards.append((random.choice(karty)))
+
+                    info.place_forget()
+                    informacja.set("Dealer dobiera")
+
+
+                    info.place(x=300, y=300)
+                    #messagebox.showinfo('', 'Dealer dobiera!')
+
+                    info.update()
+                    time.sleep(2)
+
+                    dealercards2 = ""
+                    for i in dealercards:
+                        dealercards2 += " "
+                        dealercards2 += str(i)
+                        dealercards2 += " "
+                    dealersum = 0
+                    for i in range(0, len(dealercards), 1):
+                        if dealercards[i] == "J" or dealercards[i] == "Q" or dealercards[i] == "K":
+                            dealersum += 10
+                        elif dealercards[i] == "A":
+                            dealersum += 1
+                        else:
+                            dealersum += int(dealercards[i])
+                    dealersum2.set(dealersum)
+                    dealercards3.set(dealercards2)
+                    display_cards_2()
+                break
+    else:
+        pass
+
+    info.place_forget()
+    info.update()
+    time.sleep(1)
+    info.place(x=300, y=300)
+    if mysum == dealersum and mysum <= 21:
+
+        info.place_forget()
+        informacja.set("PUSH!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'PUSH!')
+    elif mysum > dealersum and mysum == 21:
+
+        info.place_forget()
+        informacja.set("BLACKJACK! You won!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'BLACKJACK! You won!')
+        stan_konta -= stawka
+        stan_konta += math.floor(stawka*2.5)
+    elif mysum < dealersum and mysum == 21:
+
+        info.place_forget()
+        informacja.set("BLACKJACK! You won!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'BLACKJACK! You won!')
+        stan_konta -= stawka
+        stan_konta += math.floor(stawka*2.5)
+    elif mysum > dealersum and mysum < 21:
+
+        info.place_forget()
+        informacja.set("You won!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'You won!')
+        stan_konta += stawka
+    elif mysum < 21 and dealersum > 21:
+
+        info.place_forget()
+        informacja.set("You won!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'You won!')
+        stan_konta += stawka
+    elif mysum < dealersum and dealersum <= 21:
+
+        info.place_forget()
+        informacja.set("You lose!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'You lose!')
+        stan_konta -= stawka
+    elif mysum > 21:
+
+        info.place_forget()
+        informacja.set("BOOSTED! You lose!")
+        info.place(x=300, y=300)
+
+        #messagebox.showinfo('', 'BOOSTED! You lose!')
+        stan_konta -= stawka
+
+    ok.place(x=350, y=380)
+    ok.wait_variable(okej)
+
+    saldo.set(stan_konta)
+    stawiam.set(0)
+
+    clear()
+
+
+#O AUTORZE=============================================================
+
+
+author_frame = Frame(bjapp, bg="dark green")
+author_frame.place(x=0, y=0, width=750, height=750)
+
+buttons = Frame(author_frame)
+buttons.pack(side=BOTTOM)
+
+about = Label(buttons, text="Wykonał Paweł Sieńkowski", bg="dark green", font=("Arial Black", 10))
+about.grid(column=0, row=1)
+
+spacer21 = Label(buttons, bg="dark green")
+spacer21.grid(column=0, row=2, sticky="nesw")
+spacer21.config(height=10)
+
+zamknij = Button(buttons, text="CLOSE", bg="grey", fg="black", font=("Arial Black", 10), command=lambda: wynies(ekran_startowy))
+zamknij.grid(column=0, row=3, sticky="news")
+
+spacer21 = Label(buttons, bg="dark green")
+spacer21.grid(column=0, row=4, sticky="nesw")
+spacer21.config(height=10)
+
+
+
+
+#GAMEPLAY=========================================================
+
+gameplay = Frame(bjapp, bg="dark green")
+gameplay.place(x=0, y=0, width=750, height=750)
+
+to_display = Frame(gameplay, bg="red")
+to_display.place(x=30, y=30)
+
+saldo = IntVar()
+stawiam = IntVar()
+saldo.set(10000)
+
+mycards3 = StringVar()
+dealercards3 = StringVar()
+dealercard = StringVar()
+mysum2 = StringVar()
+dealersum2 = StringVar()
+
+informacja = StringVar()
+
+okej = IntVar()
+okej2 = IntVar()
+okej2.set(2)
+czy = IntVar()
+
+balance1 = Label(to_display, bg="grey", text="BALANCE:", font=("Arial Black", 10))
+balance1.grid(column=0, row=2, sticky="news")
+balance1.config(width=10)
+
+balance2 = Label(to_display, bg="white", textvariable=saldo, font=("Arial Black", 10))
+balance2.grid(column=1, row=2, sticky="news")
+balance2.config(width=10)
+
+mybet1 = Label(to_display, bg="grey", text="BET AMOUNT:")
+mybet1.grid(column=0, row=3, sticky="news")
+mybet1.config(width=10)
+mybet2 = Label(to_display, bg="white", textvariable=stawiam, font=("Arial", 10))
+mybet2.grid(column=1, row=3, sticky="news")
+mybet2.config(width=10)
+
+
+
+karty = Frame(gameplay, bg="dark green")
+karty.place(x=150, y=200)
+
+dealercards4 = Label(karty, bg="white", text="Dealer's first card:", font=("Arial Black", 20))
+dealersum3 = Label(karty, bg="white", text="Sum:", font=("Arial Black", 20))
+dealersum4 = Label(karty, bg="white", textvariable=dealersum2, font=("Arial", 20))
+
+
+def okejowo():
+    okej2.set(1)
+    hit.config(bg="grey")
+    stand.config(bg="grey")
+
+
+info = Label(gameplay, bg="orange")
+
+ok = Button(gameplay, text="OK", font=("Arial Black", 10), command=lambda: okej.set(1))
+#ok.place(x=450, y=380)
+
+accept = Button(gameplay, text="Accept", font=("Arial Black", 10), command=okejowo)
+
+say = Label(info, bg="yellow", textvariable=informacja, font=("Arial Black", 10))
+say.grid(column=0, row=0)
+
+hit_or_stand = Frame(gameplay, bg="blue")
+
+def hit_pick():
+    okej2.set(1)
+    # czy.set(1)
+    # hit.config(bg="red")
+    # stand.config(bg="grey")
+    # accept.place(x=375, y=400)
+
+def stand_pick():
+    okej2.set(0)
+    # czy.set(0)
+    # stand.config(bg="red")
+    # hit.config(bg="grey")
+    # accept.place(x=375, y=400)
+
+hit = Button(hit_or_stand, text="HIT", command=hit_pick)
+hit.grid(column=0, row=0)
+
+spacerHS = Label(hit_or_stand, bg="dark green")
+spacerHS.grid(column=1, row=0, sticky="news")
+spacerHS.config(width=10)
+
+stand = Button(hit_or_stand, text="STAND", command=stand_pick)
+stand.grid(column=2, row=0)
+
+
+
+
+
+
+gameplay_buttons = Frame(gameplay, bg="red")
+gameplay_buttons.pack(side=BOTTOM)
+
+spacer31 = Label(gameplay_buttons, bg="dark green")
+spacer31.grid(column=0, row=1, sticky="news", columnspan=11)
+spacer31.config(height=10)
+
+zero = Button(gameplay_buttons, text="Clear Bet", bg="grey", fg="black", font=("Arial Black", 10), command=lambda: stawiam.set(0))
+zero.grid(column=0, row=0)
+
+plus100 = Button(gameplay_buttons, text="+100", bg="grey", fg="black", font=("Arial Black", 10), command=wiecej100)
+plus100.grid(column=4, row=0)
+
+plus500 = Button(gameplay_buttons, text="+500", bg="grey", fg="black", font=("Arial Black", 10), command=wiecej500)
+plus500.grid(column=5, row=0)
+
+plus1000 = Button(gameplay_buttons, text="+1000", bg="grey", fg="black", font=("Arial Black", 10), command=wiecej1000)
+plus1000.grid(column=6, row=0)
+
+maxbet = Button(gameplay_buttons, text="MAX", bg="grey", fg="black", font=("Arial Black", 10), command=lambda: stawiam.set(saldo.get()))
+maxbet.grid(column=7, row=0)
+
+BET = Button(gameplay_buttons, text="BET", bg="grey", fg="black", font=("Arial Black", 10), command=maybe_bet)
+BET.grid(column=8, row=0)
+
+leave = Button(gameplay_buttons, text="LEAVE", bg="grey", fg="red4", font=("Arial Black", 10), command=lambda: wynies(ekran_startowy))
+leave.grid(column=10, row=0)
+
+
+
+
+
+
+
+
+
+#EKRAN STARTOWY ======================================================
+
+ekran_startowy = Frame(bjapp, bg="dark green")
+ekran_startowy.place(x=0, y=0, width=750, height=750)
+
+title = Label(ekran_startowy, text="BLACK-JACK", bg="dark green", fg="white", font=("Courier New BOLD", 50), pady=100)
+title.pack()
+
+
+
+
+guziki = Frame(ekran_startowy)
+guziki.pack(side=BOTTOM)
+
+
+start = Button(guziki, text="START THE GAME", bg="grey", fg="black", font=("Arial Black", 10), command=lambda: wynies(gameplay))
+start.grid(column=0, row=0, sticky="nesw")
+spacer1 = Label(guziki, bg="dark green").grid(column=0, row=1, sticky="nesw")
+autor = Button(guziki, text="ABOUT THE AUTHOR", bg="grey", fg="black", font=("Arial Black", 10), command=lambda: wynies(author_frame))
+autor.grid(column=0, row=2, sticky="nesw")
+spacer2 = Label(guziki, bg="dark green")
+spacer2.grid(column=0, row=3, sticky="nesw")
+spacer2.config(height=10)
+wyjscie = Button(guziki, text="Move on to the next game", bg="grey", fg="red4", font=("Arial Black", 10), command=bjapp.destroy)
+wyjscie.grid(column=0, row=4, sticky="nesw")
+spacer3 = Label(guziki, bg="dark green")
+spacer3.grid(column=0, row=5, sticky="nesw")
+spacer3.config(height=10)
+
+
+
+bjapp.mainloop()
+
+
+
+
 """
 #importujemy biblioteke tkinter
 from tkinter import *
@@ -1148,7 +1663,7 @@ about_game_button = Button(main_menu_buttons, text="About The Game", bg="gray5",
 about_game_button.grid(column=1, row=2, sticky="news")
 
 
-high_scores_button = Button(main_menu_buttons, text="High Scores", bg="gray5", fg="white", font=("Arial Black", 15), command=lambda: goto_highscores())
+high_scores_button = Button(main_menu_buttons, text="High Scores", bg="gray5", fg="white", font=("Arial Black", 15), command=lambda: [goto_highscores(), bjapp.mainloop()])
 
 high_scores_button.grid(column=1, row=3, sticky="news")
 
