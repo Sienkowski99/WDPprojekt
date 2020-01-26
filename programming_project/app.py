@@ -1178,6 +1178,7 @@ def intro_function():
 def placement_on_the_map():
     possible_x = []
     possible_y = []
+    list_of_cords = []
 
     #   third argument controls distance between buttons of locations
     for m in range(10, 91, 6):
@@ -1209,6 +1210,8 @@ def placement_on_the_map():
                 temp_y_id = random.randint(0, len(possible_y)-1)
                 temp_y = possible_y[temp_y_id]
 
+        list_of_cords.append([temp_x, temp_y])
+
         if i == 1:
             tile_1.place(relx=temp_x, rely=temp_y, anchor=CENTER)
         elif i == 2:
@@ -1231,6 +1234,7 @@ def placement_on_the_map():
             tile_10.place(relx=temp_x, rely=temp_y, anchor=CENTER)
         else:
             pass
+    print(list_of_cords)
 
 
 def ending():
