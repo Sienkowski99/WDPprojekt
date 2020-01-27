@@ -266,7 +266,7 @@ def obstaw():
 
         #messagebox.showinfo('', 'BLACKJACK! You won!')
         stan_konta -= stawka
-        stan_konta += math.floor(stawka*2.5)
+        stan_konta += math.floor(stawka*float(possible_outcoms["bjwin"]))
     elif mysum < dealersum and mysum == 21:
 
         info.place_forget()
@@ -275,7 +275,7 @@ def obstaw():
 
         #messagebox.showinfo('', 'BLACKJACK! You won!')
         stan_konta -= stawka
-        stan_konta += math.floor(stawka*2.5)
+        stan_konta += math.floor(stawka*float(possible_outcoms["bjwin"]))
     elif mysum > dealersum and mysum < 21:
 
         info.place_forget()
@@ -368,6 +368,12 @@ okej = IntVar()
 okej2 = IntVar()
 okej2.set(2)
 czy = IntVar()
+
+possible_outcoms = {
+    "win": "2",
+    "loss": "0",
+    "bjwin": "2.5"
+}
 
 balance1 = Label(to_display, bg="grey", text="BALANCE:", font=("Arial Black", 10))
 balance1.grid(column=0, row=2, sticky="news")
@@ -798,9 +804,9 @@ def calculate_points():
     golden_ratio = 1.618033988749
 
     if clues_amount == 0:
-        current_score = abs(int(minutes * euler + seconds * 2 * pi + miliseconds * golden_ratio))
+        current_score = abs(int(minutes * euler + seconds * 2 * pi + miliseconds * golden_ratio*int(game_mode["hard"])))
     else:
-        current_score = abs(int(minutes * euler + seconds * 2 * pi + miliseconds * golden_ratio * clues_amount * 10))
+        current_score = abs(int(minutes * euler + seconds * 2 * pi + miliseconds * golden_ratio * clues_amount * 10*int(game_mode["normal"])))
 
 
 def get_starting_time(start_0_or_end_1):
@@ -813,6 +819,7 @@ def get_starting_time(start_0_or_end_1):
                 time_start_tab.append(time_start[i])
 
         print(time_start_tab)
+        czas_gry["poczatkowy"] = time_start_tab
 
     elif start_0_or_end_1 == 1:
         global time_end_tab
@@ -823,6 +830,9 @@ def get_starting_time(start_0_or_end_1):
                 time_end_tab.append(time_end[i])
 
         print(time_end_tab)
+        czas_gry["koncowy"] = time_end_tab
+
+    print(czas_gry)
 
 
 
@@ -852,7 +862,6 @@ def random_murder():
         murder_list.append(line.strip())
     print(murder_list)
     x = random.randint(0, len(murder_list)-1)
-    x = 0
     murder_pick.set(murder_list[x])
     print(murder_pick.get())
 
@@ -1514,6 +1523,16 @@ answer.set("None")
 
 murder_pick = StringVar()
 
+czas_gry = {
+    "poczatkowy": "00:00:00",
+    "koncowy": "00:00:00"
+}
+
+game_mode = {
+    "easy": "10",
+    "normal": "50",
+    "hard": "99"
+}
 
 time_start_tab = []
 time_end_tab = []
