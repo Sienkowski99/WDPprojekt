@@ -852,6 +852,7 @@ def random_murder():
         murder_list.append(line.strip())
     print(murder_list)
     x = random.randint(0, len(murder_list)-1)
+    x = 0
     murder_pick.set(murder_list[x])
     print(murder_pick.get())
 
@@ -1001,6 +1002,21 @@ def place_details(place):
 def description(trail_name):
     print(trail_name)
 
+    items_desc = {
+        "hammer" : "Hmmm... \nI'd say that it belongs to a man but i could be stolen.",
+        "knife" : "This kind of a knife could be used be almost everyone.",
+        "money" : "Hmm... That seems not to be a british currency.",
+        "cigarette" : "Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.",
+        "notebook" : "It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.",
+        "watch" : "That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea",
+        "hat" : "That hat could be worn be almost everyone.\nI don't think it will help.",
+        "syringe" : "Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.",
+        "armyknife" : "This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\nWait a minute! Is it blood on the blade?",
+        "newspaper" : "This is a normal London's newspaper... Nothing interesting here."
+    }
+
+    print(items_desc)
+
     description_frame = Frame(game, bg="gray20", width=700, height=600, padx=20, pady=20)
     description_frame.place(x=33, y=30)
 
@@ -1013,6 +1029,38 @@ def description(trail_name):
     description_button.place(relx=0.5, rely=0.9, anchor=CENTER)
 
     if murder_pick.get() == "Soldier":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set(items_desc["hammer"])
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set(items_desc["knife"])
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set(items_desc["money"])
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set(items_desc["cigarette"])
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set(items_desc["notebook"])
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set(items_desc["watch"])
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set(items_desc["hat"])
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set(items_desc["syringe"])
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set(items_desc["armyknife"])
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set(items_desc["newspaper"])
+
+    elif murder_pick.get() == "Nurse":
         if trail_name == "Hammer":
             print(trail_name)
             item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
@@ -1045,7 +1093,172 @@ def description(trail_name):
             print(trail_name)
             item_description.set("This is a normal London's newspaper... Nothing interesting here.")
 
-    elif murder_pick.get() == "Nurse":
+    elif murder_pick.get() == "American_businessman":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used be almost everyone.")
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set("Hmm... That seems not to be a british currency.")
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set("Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.")
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set("It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.")
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set("That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea")
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set("That hat could be worn be almost everyone.\nI don't think it will help.")
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set("Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.")
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\n"
+                                 "Wait a minute! Is it blood on the blade?")
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set("This is a normal London's newspaper... Nothing interesting here.")
+
+    elif murder_pick.get() == "Wealthy_Investor":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used be almost everyone.")
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set("Hmm... That seems not to be a british currency.")
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set("Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.")
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set("It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.")
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set("That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea")
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set("That hat could be worn be almost everyone.\nI don't think it will help.")
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set("Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.")
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\n"
+                                 "Wait a minute! Is it blood on the blade?")
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set("This is a normal London's newspaper... Nothing interesting here.")
+
+    if murder_pick.get() == "Photographer":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used be almost everyone.")
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set("Hmm... That seems not to be a british currency.")
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set("Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.")
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set("It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.")
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set("That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea")
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set("That hat could be worn be almost everyone.\nI don't think it will help.")
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set("Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.")
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\n"
+                                 "Wait a minute! Is it blood on the blade?")
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set("This is a normal London's newspaper... Nothing interesting here.")
+
+    elif murder_pick.get() == "Seller_from_the_street":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used be almost everyone.")
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set("Hmm... That seems not to be a british currency.")
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set("Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.")
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set("It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.")
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set("That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea")
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set("That hat could be worn be almost everyone.\nI don't think it will help.")
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set("Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.")
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\n"
+                                 "Wait a minute! Is it blood on the blade?")
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set("This is a normal London's newspaper... Nothing interesting here.")
+
+    elif murder_pick.get() == "Motorman":
+        if trail_name == "Hammer":
+            print(trail_name)
+            item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
+        elif trail_name == "Knife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used be almost everyone.")
+        elif trail_name == "Money":
+            print(trail_name)
+            item_description.set("Hmm... That seems not to be a british currency.")
+        elif trail_name == "Cigarette":
+            print(trail_name)
+            item_description.set("Womens smoke rather rarely. I'm not sure if it's an important thing to jot down.")
+        elif trail_name == "Notebook":
+            print(trail_name)
+            item_description.set("It has been signed by \"Mc Dickhead\"\nIt's to vulgar for a british gentelman...\nUnless he's deviant.")
+        elif trail_name == "Watch":
+            print(trail_name)
+            item_description.set("That's an expensive watch.\nThere is no way that owner is poor...\nUnless the \"owner\" has stolen this item.\nWhat are the other possibilities? I have no idea")
+        elif trail_name == "Hat":
+            print(trail_name)
+            item_description.set("That hat could be worn be almost everyone.\nI don't think it will help.")
+        elif trail_name == "Syringe":
+            print(trail_name)
+            item_description.set("Who tf uses those? Probably a nurse or a junkie.\nIt's soo dirty I think that it's been used by a junkie.")
+        elif trail_name == "ArmyKnife":
+            print(trail_name)
+            item_description.set("This kind of a knife could be used most probably be a soldier\n or by a person that travels a lot.\n"
+                                 "Wait a minute! Is it blood on the blade?")
+        elif trail_name == "Newspaper":
+            print(trail_name)
+            item_description.set("This is a normal London's newspaper... Nothing interesting here.")
+
+    elif murder_pick.get() == "Trumpeter":
         if trail_name == "Hammer":
             print(trail_name)
             item_description.set("Hmmm... \nI'd say that it belongs to a man but i could be stolen.")
@@ -1168,12 +1381,12 @@ def intro_function():
         elif x > 2:
             intro.place_forget()
             main_tiles.place(x=33, y=30)
-            place_description.set("What we know for now is that the murder is a man.\nHe killed in one of the places that we will visit today.")
+            place_description.set(" ")
         x += 1
     else:
         intro.place_forget()
         main_tiles.place(x=33, y=30)
-        place_description.set("What we know for now is that the murder is a man.\nHe killed in one of the places that we will visit today.")
+        place_description.set("")#What we know for now is that the murder is a man.\nHe killed in one of the places that we will visit today.")
 
 def placement_on_the_map():
     possible_x = []
